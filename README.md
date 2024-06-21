@@ -1,17 +1,6 @@
 # SensorSync-IoT
 Advanced 0-5V Analog Data Logger &amp; Real-Time Monitor | Wi-Fi, MQTT, SD Card | ESP32 Sunton HMI
 
-![SensorSync-IoT](screenshots/9.png)
-
-![SensorSync-IoT](screenshots/screenshot.png)
-
-![SensorSync-IoT](screenshots/lcd_screenshot.png)
-
-
-
-
-  SensorSync IoT Documentation    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #343a40; transition: background-color 0.5s, color 0.5s; } .navbar { background-color: #343a40; transition: background-color 0.5s, color 0.5s; } .sidebar { position: fixed; top: 56px; left: 0; height: 100%; width: 250px; background-color: #3a3a3a; color: #fff; display: flex; flex-direction: column; padding-top: 20px; overflow-y: auto; transition: background-color 0.5s, color 0.5s; } .sidebar h3 { margin: 0; padding: 10px 0; text-align: center; font-size: 1.2rem; } .sidebar a { color: #fff; text-decoration: none; margin: 10px 20px; padding: 10px; text-align: left; border-radius: 5px; transition: background-color 0.3s, color 0.3s; } .sidebar a:hover, .sidebar a:focus, .sidebar a.active { background-color: #495057; color: #f8f9fa; } .toggle-theme-btn { cursor: pointer; color: #fff !important; } .content { margin-left: 270px; padding: 30px; transition: margin-left 0.5s, background-color 0.5s, color 0.5s; } .card { margin-bottom: 20px; border: none; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); } .content img { max-width: 100%; height: auto; margin-top: 15px; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); } .section-title { margin-top: 30px; margin-bottom: 15px; padding-bottom: 10px; font-size: 1.5rem; font-weight: bold; border-bottom: 3px solid #343a40; color: #be5c5c; } .list-group-item { border: none; padding: 10px; background-color: #f8f9fa; } .lead { margin-bottom: 20px; } .bg-dark-mode { background-color: #212529; color: #f8f9fa; } .navbar-dark-mode { background-color: #343a40; } .sidebar-dark-mode { background-color: #495057; } .card-dark-mode { background-color: #343a40; color: #f8f9fa; } .list-group-item-dark-mode { background-color: #495057; color: #f8f9fa; } .section-title-dark-mode { border-bottom-color: #f8f9fa; }
-
 [SensorSync IoT](#)
 
 ### Table of Contents
@@ -23,7 +12,7 @@ SensorSync IoT Documentation
 
 Comprehensive guide to set up, use, and maintain your SensorSync IoT device.
 
-![SensorSync IoT Device](SensorSync.jpg)
+![SensorSync-IoT](screenshots/9.png)
 
 Introduction
 ------------
@@ -55,6 +44,8 @@ After setting up your SensorSync IoT, you can start monitoring and logging senso
 *   **Access Data:** Download logged data from the SD card or view it remotely on your smartphone or computer.
 
 ![Usage Example](usage.jpg)
+
+![SensorSync-IoT](screenshots/screenshot.png)
 
 Features
 --------
@@ -96,7 +87,7 @@ Potential Use Cases
 *   **Environmental Monitoring:** Track environmental parameters such as temperature, humidity, and air quality.
 *   **Research and Development:** Use data logging and real-time monitoring for experiments and industrial research projects.
 
-![Potential Use Cases](use-cases.jpg)
+![SensorSync-IoT](screenshots/lcd_screenshot.png)
 
 Troubleshooting
 ---------------
@@ -180,14 +171,3 @@ Save calibration data using the following endpoint:
 Example: curl -X POST -d "raw\_min=0&raw\_max=4095&cal\_min=0&cal\_max=100&interval=6&mqtt\_broker=broker.hivemq.com&mqtt\_port=1883" http://DEVICE\_IP/calibrate
 
 [Made by hjLabs.in](https://hjlabs.in) | 2024
-
-document.querySelector('.toggle-theme-btn').addEventListener('click', function() { document.body.classList.toggle('bg-dark-mode'); document.body.classList.toggle('text-light'); document.querySelectorAll('.card').forEach(card => { card.classList.toggle('card-dark-mode'); }); document.querySelectorAll('.list-group-item').forEach(item => { item.classList.toggle('list-group-item-dark-mode'); }); document.querySelectorAll('.section-title').forEach(title => { title.classList.toggle('section-title-dark-mode'); }); let icon = document.querySelector('.toggle-theme-btn i'); icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun'); });
-
-Introduction
-------------
-
-The SensorSync IoT is a versatile analogue IoT data-logger and indicator designed to provide seamless integration with various sensors that output analog signals ranging from 0-5V. It enables real-time monitoring and analysis of sensor data, making it an essential tool for various industrial and research applications.
-
-![Introduction](introduction.jpg)
-
-\`\`\`
