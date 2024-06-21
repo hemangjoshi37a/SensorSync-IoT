@@ -5,6 +5,8 @@ Advanced 0-5V Analog Data Logger &amp; Real-Time Monitor | Wi-Fi, MQTT, SD Card 
 
 ![SensorSync-IoT](screenshots/9.png)
 
+[BUY NOW](https://hjlabs.in/product/sensorsync-iot-advanced-0-5v-analog-data-logger-real-time-monitor-wi-fi-mqtt-sd-card/)
+
 ### Table of Contents
 
 [Introduction](#introduction) [Setup](#setup) [Usage](#usage) [Features](#features) [Potential Use Cases](#potential-use-cases) [Troubleshooting](#troubleshooting) [Web Interface](#web-interface) [Wi-Fi Setup](#wifi-setup) [Calibration](#calibration) [API Endpoints](#api-endpoints)
