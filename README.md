@@ -4,3 +4,5 @@ Advanced 0-5V Analog Data Logger &amp; Real-Time Monitor | Wi-Fi, MQTT, SD Card 
 ![SensorSync-IoT](screenshots/9.png)
 
 ![SensorSync-IoT](screenshots/screenshot.png)
+
+![SensorSync-IoT](screenshots/lcd_screenshot.png)
