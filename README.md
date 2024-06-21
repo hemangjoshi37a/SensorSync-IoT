@@ -1,18 +1,11 @@
 # SensorSync-IoT
 Advanced 0-5V Analog Data Logger &amp; Real-Time Monitor | Wi-Fi, MQTT, SD Card | ESP32 Sunton HMI
 
-[SensorSync IoT](#)
+![SensorSync-IoT](screenshots/9.png)
 
 ### Table of Contents
 
 [Introduction](#introduction) [Setup](#setup) [Usage](#usage) [Features](#features) [Potential Use Cases](#potential-use-cases) [Troubleshooting](#troubleshooting) [Web Interface](#web-interface) [Wi-Fi Setup](#wifi-setup) [Calibration](#calibration) [API Endpoints](#api-endpoints)
-
-SensorSync IoT Documentation
-============================
-
-Comprehensive guide to set up, use, and maintain your SensorSync IoT device.
-
-![SensorSync-IoT](screenshots/9.png)
 
 Introduction
 ------------
