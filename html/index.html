@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang='en'>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>LNG Fuel Indicator WebUI</title>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
+  <script src='https://code.jquery.com/jquery-3.5.1.slim.min.js'></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+  <style>
+   .file-list {
+      list-style-type: none;
+        padding: 0;
+      }
+.file-list-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+.file-download {
+        margin-left: 10px;
+        display: block;
+      }
+
+      padding-top: 70px; 
+    }
+      font-family: 'Roboto', sans-serif;
+     }
+       background-color: #333; 
+       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+ .padding: 10px; 
+     }
+ .app-bar {
+  background-color: #f8f9fa; 
+     padding: 10px; 
+  display: flex;
+.justify-content: space-between; 
+     align-items: center;
+     flex-wrap: wrap; 
+.app-title {
+       flex: 1;
+       text-align: center;
+     }
+     }
+ .form-row {
+.display: flex;
+        flex-direction: column;
+
+         gap: 10px; 
+.form-group {
+.flex: unset; 
+. Reduce space underneath labels */
+         font-weight: bold; 
+ .modal-footer {
+  width: 100%; 
+      buttons full-width for better mobile UI */
+     }
+
+
+    
+</style>
+</head>
+<body style="background-color: #eee;">
+<nav class="navbar navbar-expand-lg navbar-dark" style="box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+  <a class="navbar-brand" href="#" style="font-weight: 600; letter-spacing: 1px;">LNG Fuel Indicator</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <button id="apiModalButton" type="button" class="btn text-white" style="background-color: #4caf50;"><i class="fas fa-code"></i> API</button>
+      </li>
+      <li class="nav-item">
+        <button id="updateModalButton" type="button" class="btn text-white mx-2" style="background-color: #2196f3;"><i class="fas fa-upload"></i> Update</button>
+      </li>
+      <li class="nav-item">
+        <button id="settingsModalButton" type="button" class="btn text-white" style="background-color: #ff9800;"><i class="fas fa-cogs"></i> Settings</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class='container mt-3'>
+ <div class='card'>
+    <div class='card-body'>
+      <div id='gauge' class='col-12 mb-4'></div>
+    </div>
+  </div>
+
+<div class='card mt-3'>
+   <div class='card-body'>
+      <h3><i class='fas fa-sliders-h'></i> Calibration</h3>
+       <form id='calibrationForm'>
+         <div class='form-row'>
+           <div class='form-group row'>
+             <label for='raw_min' class='col-sm-2 col-form-label'><i class='fas fa-wrench'></i> Raw Min:</label>
+             <div class='col-sm-10'>
+               <input type='text' class='form-control' id='raw_min' name='raw_min' value='0'>
+             </div>
+           </div>
+           <div class='form-group row'>
+             <label for='raw_max' class='col-sm-2 col-form-label'><i class='fas fa-wrench'></i> Raw Max:</label>
+             <div class='col-sm-10'>
+               <input type='text' class='form-control' id='raw_max' name='raw_max' value='4095'>
+             </div>
+           </div>
+           
+         <div class='form-group row'>
+           <label for='cal_min' class='col-sm-2 col-form-label'><i class='fas fa-adjust'></i> Cal Min:</label>
+           <div class='col-sm-10'>
+             <input type='text' class='form-control' id='cal_min' name='cal_min' value='0'>
+           </div>
+         </div>
+           <div class='form-group row'>
+             <label for='cal_max' class='col-sm-2 col-form-label'><i class='fas fa-adjust'></i> Cal Max:</label>
+             <div class='col-sm-10'>
+               <input type='text' class='form-control' id='cal_max' name='cal_max' value='100'>
+             </div>
+           </div>
+         </div>
+         <button type='submit' class='btn btn-primary'>Save</button>
+       </form>
+     </div>
+   </div>
+
+     <div class='card mt-3'>
+       <div class='card-body'>
+         <h3><i class='fas fa-network-wired'></i> MQTT Settings</h3>
+         <form id='mqttSettingsForm'>
+           <div class='form-row'>
+             <div class='form-group row'>
+               <label for='mqtt_broker' class='col-sm-2 col-form-label'><i class='fas fa-server'></i> MQTT Broker:</label>
+               <div class='col-sm-10'>
+                 <input type='text' class='form-control' id='mqtt_broker' name='mqtt_broker' value='broker.hivemq.com'>
+               </div>
+             </div>
+             <div class='form-group row'>
+               <label for='mqtt_port' class='col-sm-2 col-form-label'><i class='fas fa-plug'></i> MQTT Port:</label>
+               <div class='col-sm-10'>
+                 <input type='text' class='form-control' id='mqtt_port' name='mqtt_port' value='1883'>
+               </div>
+             </div>
+           </div>
+           <div class='form-row'>
+             <div class='form-group row'>
+               <label for='device_id' class='col-sm-2 col-form-label'><i class='fas fa-id-card'></i> Device ID:</label>
+               <div class='col-sm-10'>
+                 <input type='text' class='form-control' id='device_id' name='device_id' value='yourDeviceID' readonly>
+               </div>
+             </div>
+             <div class='form-group row'>
+               <label for='mqtt_topics' class='col-sm-2 col-form-label'><i class='fas fa-list'></i> MQTT Topics:</label>
+               <div class='col-sm-10'>
+                 <textarea class='form-control' id='mqtt_topics' name='mqtt_topics' rows='3' readonly>yourTopics</textarea>
+               </div>
+             </div>
+           </div>
+         </form>
+       </div>
+     </div>
+
+ <div class='card mt-3'>
+   <div class='card-body'>
+     <h3><i class='fas fa-sd-card'></i> SD Card Logging</h3>
+     <form id='sdCardLoggingForm'>
+       <div class='form-row'>
+         <div class='form-group row'>
+           <label for='interval' class='col-sm-6 col-form-label'><i class='fas fa-clock'></i> Logging Interval (seconds):</label>
+           <div class='col-sm-6'>
+             <input type='text' class='form-control' id='interval' name='interval' value='6'>
+           </div>
+         </div>
+         <div class='form-group row'>
+           <label for='sd_logging' class='col-sm-6 col-form-label'><i class='fas fa-database'></i> SD Card Logging (Beta):</label>
+           <div class='col-sm-6'>
+             <input type='checkbox' id='sd_logging' name='sd_logging' value='1'>
+           </div>
+         </div>
+       </div>
+     </form>
+     <div id='files'>
+       <h4>SD Card Files</h4>
+       <ul class='file-list' id='file-list'>
+       </ul>
+     </div>
+   </div>
+ </div>
+
+ <div class='card mt-3'>
+   <div class='card-body'>
+     <h3><i class='fas fa-palette'></i> Theme</h3>
+     <form id='themeForm'>
+       <div class='form-row'>
+         <div class='form-group row'>
+           <label for='theme' class='col-sm-6 col-form-label'><i class='fas fa-paint-brush'></i> Select Theme:</label>
+           <div class='col-sm-6'>
+             <select class='form-control' id='theme' name='theme'>
+               <option value='0'>Light</option>
+               <option value='1'>Dark</option>
+             </select>
+           </div>
+         </div>
+       </div>
+     </form>
+   </div>
+ </div>
+
+   <div class='card mt-3'>
+     <div class='card-body'>
+       <h3><i class='fas fa-weight'></i> Measurement Unit</h3>
+       <form id='unitForm'>
+         <div class='form-row'>
+           <div class='form-group row'>
+             <label for='measurement_unit' class='col-sm-6 col-form-label'><i class='fas fa-ruler'></i> Measurement Unit:</label>
+             <div class='col-sm-6'>
+               <input type='text' class='form-control' id='measurement_unit' name='measurement_unit' value='kg'>
+             </div>
+           </div>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>
+
+  <div id="api-docs-dialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">API Documentation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+  <div id='apiAccordion'> <!-- API accordion added -->
+    <div class='card'>
+      <div class='card-header' id='headingOne'>
+        <h5 class='mb-0'>
+          <button class='btn btn-link' data-toggle='collapse' data-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne'>
+            Update Settings
+          </button>
+        </h5>
+      </div>
+      <div id='collapseOne' class='collapse' aria-labelledby='headingOne' data-parent='#apiAccordion'>
+        <div class='card-body'>
+          <div class="row">
+            <div class="col">
+              <p>Updates settings like Calibration, MQTT, etc.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <p><strong>POST</strong></p>
+            </div>
+            <div class="col">
+              <input class='form-control form-control-sm' type='text' value='http://)"
+                  + WiFi.localIP().toString() + R"(/calibrate' id='calibrateUrl' readonly>
+            </div>
+            <div class="col-auto">
+              <button class='btn btn-outline-secondary btn-sm' onclick='copyToClipboard("calibrateUrl")'>Copy</button>
+            </div>
+          </div>
+          <p>Example: <code>curl -X POST -F "raw_min=0" -F "raw_max=4095" -F "cal_min=0" -F "cal_max=100" -F "interval=6" -F "mqtt_broker=broker.hivemq.com" -F "mqtt_port=1883" http://)"
+                  + WiFi.localIP().toString() + R"(/updateSettings</code></p>
+        </div>
+      </div>
+    </div>
+    <div class='card'>
+      <div class='card-header' id='headingTwo'>
+        <h5 class='mb-0'>
+          <button class='btn btn-link collapsed' data-toggle='collapse' data-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo'>
+            Live Data
+          </button>
+        </h5>
+      </div>
+      <div id='collapseTwo' class='collapse' aria-labelledby='headingTwo' data-parent='#apiAccordion'>
+        <div class='card-body'>
+          <div class="row">
+            <div class="col">
+              <p>Fetches live data from the device.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <p><strong>GET</strong></p>
+            </div>
+            <div class="col">
+              <input class='form-control form-control-sm' type='text' value='http://)"
+                  + WiFi.localIP().toString() + R"(/liveData' id='liveDataUrl' readonly>
+            </div>
+            <div class="col-auto">
+              <button class='btn btn-outline-secondary btn-sm' onclick='copyToClipboard("liveDataUrl")'>Copy</button>
+            </div>
+          </div>
+          <p>Example: <code>curl -X GET http://)"
+                  + WiFi.localIP().toString() + R"(/liveData</code></p>
+        </div>
+      </div>
+    </div>
+</div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.min.js"></script>
+
+  <script>
+    function copyToClipboard(elementId) {
+      var copyText = document.getElementById(elementId);
+      copyText.select();
+      document.execCommand('copy');
+      alert('Copied: ' + copyText.value);
+    }
+
+$(document).ready(function() {
+  $('.collapse').collapse('hide');
+  $('#apiModalButton').on('click', function(){
+    $('#apiModal').modal('show');
+  });
+  $('#updateModalButton').on('click', function(){
+    $('#updateModal').modal('show');
+  });
+  $('#settingsModalButton').on('click', function(){
+    $('#settingsModal').modal('show');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  $('#calibrationForm').on('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: '/calibrate',
+      type: 'POST',
+      data: $(this).serialize(),
+      success: function(response) {
+        $('body').append('<div class="alert alert-success" role="alert" id="success-alert">Calibration data saved</div>');
+        fetchConfigValues();   
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+          $(this).remove();
+        });
+      },
+      error: function() {
+        $('body').append('<div class="alert alert-danger" role="alert" id="error-alert">Error saving data</div>');
+        $("#error-alert").fadeTo(2000, 500).slideUp(500, function() {
+          $(this).remove();
+        });
+          }
+      }
+ });
+});
+
+function fetchLiveData() {
+  setInterval(function() {
+    $.ajax({
+      url: '/liveData',
+      type: 'GET',
+      success: function(response) {
+        var unit = document.getElementById('measurement_unit').value;
+        gauge.refresh(response.value);
+        gauge.config.label = unit;
+      },
+      error: function() {
+        console.error('Error fetching live data');
+      }
+    });
+  }, 1000); 
+}
+fetchLiveData();
+
+document.getElementById('device_id').value = 'DEVICE_ID_PLACEHOLDER';
+document.getElementById('mqtt_topics').value = 'TOPICS_PLACEHOLDER';
+
+function showApiDocs() {
+  $('#api-docs-dialog').modal('show');
+}
+
+function showOtaDialog() {
+  $('#ota-dialog').modal('show');
+}
+
+function submitOtaForm() {
+  var formData = new FormData();
+  var fileInput = document.getElementById('otaFile');
+  formData.append('otaFile', fileInput.files[0]);
+
+  $.ajax({
+    url: '/otaUpdate',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      alert('OTA Update Successful! Device will reboot.');
+      $('#ota-dialog').modal('hide');
+      setTimeout(function() { location.reload(); }, 3000);
+    },
+    error: function(response) {
+      alert('OTA Update Failed! Please try again.');
+    }
+  });
+}
+
+$(document).ready(function() {
+  function fetchFiles() {
+    $.ajax({
+      url: '/listFiles',
+      type: 'GET',
+      success: function(response) {
+        var fileList = $('#file-list');
+        fileList.empty();
+        response.forEach(function(file) {
+          var listItem = $('<li class="file-list-item"></li>');
+          listItem.text(file.name + ' (' + file.size + ' bytes)');
+          var downloadLink = $('<a class="file-download btn btn-secondary" download></a>').text('Download').attr('href', '/download?file=' + encodeURIComponent(file.name));
+          listItem.append(downloadLink);
+          fileList.append(listItem);
+        });
+      },
+      error: function() {
+        console.error('Error fetching file list');
+      }
+    });
+  }
+
+  fetchFiles();
+});
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<div id="ota-dialog" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">OTA Firmware Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="otaForm">
+          <input type="file" id="otaFile" name="otaFile" class="form-control-file" required>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="submitOtaForm()">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

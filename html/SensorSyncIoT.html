@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SensorSync IoT Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+    <style>
+    
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+       .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #3a3a3a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            overflow-y: auto;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .sidebar h3 {
+            margin: 0;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 10px 20px;
+            padding: 10px;
+            text-align: left;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar a:hover, .sidebar a:focus, .sidebar a.active {
+            background-color: #495057;
+            color: #f8f9fa;
+        }
+
+        .toggle-theme-btn {
+            cursor: pointer;
+            color: #fff !important;
+        }
+
+        .content {
+            margin-left: 270px;
+            padding: 30px;
+            transition: margin-left 0.5s, background-color 0.5s, color 0.5s;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: 3px solid #343a40;
+            color: #be5c5c;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .lead {
+            margin-bottom: 20px;
+        }
+
+        .bg-dark-mode {
+            background-color: #212529;
+            color: #f8f9fa;
+        }
+
+        .navbar-dark-mode {
+            background-color: #343a40;
+        }
+
+        .sidebar-dark-mode {
+            background-color: #495057;
+        }
+
+        .card-dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        .list-group-item-dark-mode {
+            background-color: #495057;
+            color: #f8f9fa;
+        }
+
+        .section-title-dark-mode {
+            border-bottom-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">SensorSync IoT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <span class="nav-link toggle-theme-btn"><i class="fas fa-moon"></i></span>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <h3>Table of Contents</h3>
+        <a href="#introduction"><i class="fas fa-book-open"></i> Introduction</a>
+        <a href="#setup"><i class="fas fa-cogs"></i> Setup</a>
+        <a href="#usage"><i class="fas fa-tasks"></i> Usage</a>
+        <a href="#features"><i class="fas fa-th-list"></i> Features</a>
+        <a href="#potential-use-cases"><i class="fas fa-lightbulb"></i> Potential Use Cases</a>
+        <a href="#troubleshooting"><i class="fas fa-tools"></i> Troubleshooting</a>
+        <a href="#web-interface"><i class="fas fa-browser"></i> Web Interface</a>
+        <a href="#wifi-setup"><i class="fas fa-wifi"></i> Wi-Fi Setup</a>
+        <a href="#calibration"><i class="fas fa-balance-scale"></i> Calibration</a>
+        <a href="#api-endpoints"><i class="fas fa-code"></i> API Endpoints</a>
+    </div>
+
+    <div class="content">
+        <h1>SensorSync IoT Documentation</h1>
+        <p class="lead">Comprehensive guide to set up, use, and maintain your SensorSync IoT device.</p>
+        <img src="SensorSync.jpg" alt="SensorSync IoT Device" class="img-fluid rounded shadow-sm">
+
+        <section id="introduction">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Introduction</h2>
+            <p>The SensorSync IoT is a versatile analogue IoT data-logger and indicator designed to provide seamless integration with various sensors that output analog signals ranging from 0-5V. It enables real-time monitoring and analysis of sensor data, making it an essential tool for various industrial and research applications.</p>
+           <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Rp-tmRq2V-I" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
+                        clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+            </div>
+            <img src="introduction.jpg" alt="Introduction" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="setup">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Setup</h2>
+            <p>Follow these simple steps to set up your SensorSync IoT:</p>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item">Unbox the SensorSync IoT and ensure all components are present.</li>
+                <li class="list-group-item">Connect the power adapter to the device and plug it into an electrical outlet.</li>
+                <li class="list-group-item">Mount the device near your sensor and connect the analog sensors appropriately.</li>
+                <li class="list-group-item">Turn on the device and wait for it to boot up.</li>
+                <li class="list-group-item">Connect to the device's Wi-Fi hotspot to access the configuration portal or use the provided app for seamless setup. Configure your device by following the on-screen instructions to connect it to your local Wi-Fi network.</li>
+            </ol>
+            <img src="setup.jpg" alt="Setup Instructions" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="usage">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> Usage</h2>
+            <p>After setting up your SensorSync IoT, you can start monitoring and logging sensor data. Here's how to use it:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Monitor Data:</strong> View real-time sensor data on the device's LCD screen and through the web interface or app.</li>
+                <li class="list-group-item"><strong>Log Data:</strong> Log data to the SD card or transmit it to a cloud server via MQTT for further analysis.</li>
+                <li class="list-group-item"><strong>Access Data:</strong> Download logged data from the SD card or view it remotely on your smartphone or computer.</li>
+            </ul>
+            <img src="usage.jpg" alt="Usage Example" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="features">
+            <h2 class="section-title"><i class="fas fa-th-list"></i> Features</h2>
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-tachometer-alt"></i> Real-time Monitoring</h5>
+                    <p class="card-text">The SensorSync IoT offers real-time monitoring of analog input values, which can be visualized on the LCD screen or recorded for further analysis.</p>
+                    <img src="real-time.jpg" alt="Real-time Monitoring" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-broadcast-tower"></i> MQTT Integration</h5>
+                    <p class="card-text">Seamlessly connect the SensorSync IoT to your MQTT broker for real-time data transmission and remote monitoring.</p>
+                    <img src="mqtt.jpg" alt="MQTT Integration" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-sd-card"></i> SD Card Logging</h5>
+                    <p class="card-text">Log data locally on an SD card with customizable intervals for offline analysis.</p>
+                    <img src="sd-card.jpg" alt="SD Card Logging" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-sliders-h"></i> Programmable Scale and Measurement Units</h5>
+                    <p class="card-text">Configure the input scale, title, and measurement units to match your specific application needs.</p>
+                    <img src="scaling.jpg" alt="Programmable Scale" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-ruler-combined"></i> Advanced Calibration</h5>
+                    <p class="card-text">Perform precise calibration of analog inputs to ensure accurate and reliable data readings.</p>
+                    <img src="calibration.jpg" alt="Advanced Calibration" class="img-fluid rounded shadow-sm">
+                </div>
+            </div>
+        </section>
+
+        <section id="potential-use-cases">
+            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Potential Use Cases</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Industrial Monitoring:</strong> Monitor industrial processes and equipment health.</li>
+                <li class="list-group-item"><strong>Environmental Monitoring:</strong> Track environmental parameters such as temperature, humidity, and air quality.</li>
+                <li class="list-group-item"><strong>Research and Development:</strong> Use data logging and real-time monitoring for experiments and industrial research projects.</li>
+            </ul>
+            <img src="use-cases.jpg" alt="Potential Use Cases" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="troubleshooting">
+            <h2 class="section-title"><i class="fas fa-tools"></i> Troubleshooting</h2>
+            <p>If you encounter any issues, consult the following troubleshooting steps:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>SD Card Initialization Failed:</strong> Ensure the SD card is properly inserted and formatted.</li>
+                <li class="list-group-item"><strong>Wi-Fi Connection Issues:</strong> Verify Wi-Fi credentials and ensure the device is within range of the network.</li>
+                <li class="list-group-item"><strong>MQTT Connection Failed:</strong> Check the MQTT broker address and port configuration.</li>
+            </ul>
+            <img src="troubleshooting.jpg" alt="Troubleshooting" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="web-interface">
+            <h2 class="section-title"><i class="fas fa-browser"></i> Web Interface</h2>
+            <p>The SensorSync IoT offers an intuitive web interface for configuration and monitoring. Here's how to access and use it:</p>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item">Open a web browser and enter the device's IP address.</li>
+                <li class="list-group-item">Log in with your credentials.</li>
+                <li class="list-group-item">Navigate through the dashboard to monitor real-time data, configure settings, and more.</li>
+            </ol>
+            <img src="web-interface.jpg" alt="Web Interface" class="img-fluid rounded shadow-sm">
+            <h3 class="section-title"><i class="fas fa-tachometer-alt"></i> Dashboard</h3>
+            <p>View real-time sensor data on the main dashboard.</p>
+            <img src="dashboard.jpg" alt="Dashboard" class="img-fluid rounded shadow-sm">
+
+            <h3 class="section-title"><i class="fas fa-cogs"></i> Settings</h3>
+            <p>Configure device settings, including calibration, MQTT broker settings, and SD card logging options.</p>
+            <img src="settings.jpg" alt="Settings" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="wifi-setup">
+            <h2 class="section-title"><i class="fas fa-wifi"></i> Wi-Fi Setup</h2>
+            <p>To set up Wi-Fi on your SensorSync IoT device, follow these steps:</p>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item">Turn on the device and wait for it to boot up.</li>
+                <li class="list-group-item">Connect to the device-generated Wi-Fi hotspot named "AutoConnectAP".</li>
+                <li class="list-group-item">Open a web browser and go to <code>192.168.4.1</code> to access the Wi-Fi manager.</li>
+                <li class="list-group-item">Select your Wi-Fi network and enter the password, then click "Save".</li>
+                <li class="list-group-item">The device will reboot and connect to the configured Wi-Fi network.</li>
+            </ol>
+            <img src="wifi-setup.jpg" alt="Wi-Fi Setup" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="calibration">
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i> Calibration</h2>
+            <p>Calibrate your SensorSync IoT using the raw analog values from the info panel:</p>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item">Measure the maximum and minimum raw analog values from the sensor.</li>
+                <li class="list-group-item">Access the web interface to enter these values under the "Calibration" section.</li>
+                <li class="list-group-item">Enter the desired calibrated min-max values.</li>
+                <li class="list-group-item">Click "Save" to apply the calibration settings.</li>
+                <li class="list-group-item">Check the info panel to verify the calibrated values.</li>
+            </ol>
+            <img src="calibration-procedure.jpg" alt="Calibration Procedure" class="img-fluid rounded shadow-sm">
+        </section>
+
+        <section id="api-endpoints">
+            <h2 class="section-title"><i class="fas fa-code"></i> API Endpoints</h2>
+            <p>Interact with the SensorSync IoT programmatically using the following API endpoints:</p>
+            <h3 class="section-title"><i class="fas fa-terminal"></i> Retrieve Live Data</h3>
+            <p>Get live data from the device using the following endpoint:</p>
+            <pre><code>GET /liveData</code></pre>
+            <pre class="language-curl">Example: curl -X GET http://DEVICE_IP/liveData</pre>
+
+            <h3 class="section-title"><i class="fas fa-save"></i> Save Calibration Data</h3>
+            <p>Save calibration data using the following endpoint:</p>
+            <pre><code>POST /calibrate</code></pre>
+            <pre class="language-curl">Example: curl -X POST -d "raw_min=0&raw_max=4095&cal_min=0&cal_max=100&interval=6&mqtt_broker=broker.hivemq.com&mqtt_port=1883" http://DEVICE_IP/calibrate</pre>
+        </section>
+    </div>
+
+
+
+    <footer class="bg-dark text-light py-3 mt-5">
+        <div class="container text-center">
+            <p>
+                <a href="https://hjlabs.in" class="text-light" target="_blank" rel="noopener noreferrer">Made by hjLabs.in</a>
+                | 2024
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script>
+        document.querySelector('.toggle-theme-btn').addEventListener('click', function() {
+            document.body.classList.toggle('bg-dark-mode');
+            document.body.classList.toggle('text-light');
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.toggle('card-dark-mode');
+            });
+
+            document.querySelectorAll('.list-group-item').forEach(item => {
+                item.classList.toggle('list-group-item-dark-mode');
+            });
+
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.classList.toggle('section-title-dark-mode');
+            });
+
+            let icon = document.querySelector('.toggle-theme-btn i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+         <section id="introduction">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Introduction</h2>
+            <p>The SensorSync IoT is a versatile analogue IoT data-logger and indicator designed to provide seamless integration with various sensors that output analog signals ranging from 0-5V. It enables real-time monitoring and analysis of sensor data, making it an essential tool for various industrial and research applications.</p>
+
+            <img src="introduction.jpg" alt="Introduction" class="img-fluid rounded shadow-sm">
+        </section>
+```
+
