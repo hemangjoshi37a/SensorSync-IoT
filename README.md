@@ -1,7 +1,7 @@
 Please adda a ⭐
 
 # SensorSync-IoT
-Advanced 0-5V Analog Data Logger &amp; Real-Time Monitor | Wi-Fi, MQTT, SD Card | ESP32 Sunton HMI
+Advanced 0-5V Analog Data Logger &amp; Real-Time Monitor | Wi-Fi, MQTT, SD Card | ESP32S3 Sunton esp32-4827s043 HMI
 
 ![SensorSync-IoT](screenshots/9.png)
 
